@@ -1,0 +1,13 @@
+.venv/
+__pycache__/
+dist/
+
+# Decks and their working files
+*_slides/
+*_versions/
+*_changes.png
+~$*
+
+# Private material, never published
+/reference/
+/decks/
