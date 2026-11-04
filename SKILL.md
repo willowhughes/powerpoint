@@ -1,6 +1,7 @@
 ---
 name: powerpoint
 description: Create and edit technical presentations as editable PowerPoint files, with custom visuals, consistent formatting and no AI-generated look. Use when the user wants slides, a deck, a talk, a lecture or a seminar on any technical topic, wants to change an existing .pptx, or wants to work in their own slide template, including decks moved through Google Slides.
+disable-model-invocation: true
 ---
 
 # Technical slides
