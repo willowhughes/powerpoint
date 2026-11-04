@@ -1,8 +1,8 @@
 # powerpoint
 
-A skill that helps AI coding agents make technical slides that look like an expert built them by hand: custom figures, consistent formatting, no AI look. Every deck is a normal PowerPoint file you can keep editing yourself.
+A skill that helps AI coding agents make technical slides that are simple and consistent. Every deck is a normal PowerPoint file, edittable in any powerpoint software.
 
-It works for any technical subject. It's guidance plus a few small tools, and the agent stays free to do what your deck needs.
+Works for any technical presentation subject area. It's guidance for the agent plus a few small tools.
 
 ![Slides from the example deck](examples/contact.png)
 
@@ -38,7 +38,7 @@ Ask your agent for slides, in any folder. The skill teaches it how to design the
 
 ## Common workflows
 
-**Make a deck together.** Tell your agent the topic and audience and share any notes or papers. It proposes slide titles and what each figure should show. Correct that first, since it's the cheap time to change your mind. Then it builds the deck and you iterate on it.
+**Make a deck together.** Tell your agent the topic and audience and share any notes or papers. It proposes slide titles and what each figure should show. Correct that first, then it builds the deck and you iterate on it.
 
 **Use your own template.** Give it your `.pptx` or `.potx`: "Use `lab_template.pptx`." It builds on your layouts, colors and fonts.
 
