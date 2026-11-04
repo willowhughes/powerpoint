@@ -32,22 +32,9 @@ Then tell your agent to read `powerpoint/SKILL.md`.
 
 To let agents check their slides, you also need PowerPoint on Windows or [LibreOffice](https://www.libreoffice.org) elsewhere. The Python dependencies install themselves the first time the agent uses them.
 
-## Start it
-
-The skill only loads when you ask for it, so it stays out of your agent's way the rest of the time. Add your request after the command, in any folder:
-
-| Agent | Command |
-|---|---|
-| Claude Code, Cursor, Copilot | `/powerpoint make a deck on ...` |
-| Pi | `/skill:powerpoint make a deck on ...` |
-| Codex | `$powerpoint make a deck on ...` |
-| Gemini CLI | "Use the powerpoint skill to make a deck on ..." |
-
-Gemini CLI has no manual-only setting, so it may also offer the skill on its own. It asks you to confirm before loading it.
-
 ## How it works
 
-The skill teaches your agent how to design slides and points it to the helpers in this repo. The agent renders slides into images so it can see and fix its own work. Figures, equations, charts and tables are native PowerPoint objects whenever possible. When something has to be a picture, the agent tells you.
+Ask your agent to use the powerpoint skill, in any folder. The skill stays out of your agent's context until you ask for it. It teaches the agent how to design slides and points it to the helpers in this repo. The agent renders slides into images so it can see and fix its own work. Figures, equations, charts and tables are native PowerPoint objects whenever possible. When something has to be a picture, the agent tells you.
 
 ## Common workflows
 
