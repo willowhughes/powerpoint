@@ -37,14 +37,12 @@ Decide what the audience should see that words can't show, then draw exactly tha
 - **Titles** are short, fit on one line, and name the topic or state the point: "Swing equation: the gap sets the slope".
 - **Bullets** are fragments on one line each, with no final period, at most two levels and about five top-level items. Bold the lead term when defining several things.
 - **Plain words.** Write what an expert would say out loud.
-- **One small italic line** near the bottom for a caveat, what's simplified, or a pointer to later material.
 - **Source citations** aren't visible by default; include them when requested or appropriate. Otherwise keep source provenance in speaker notes or beside the build script.
 
 ## Truth
 
 - Every number comes from a source, the user, or code you ran. Otherwise mark it illustrative or ask. Never invent data, results or citations.
 - Compute plots and worked examples in code rather than typing numbers in.
-- Say on the slide what you simplified.
 - Tell the user about anything you couldn't verify.
 
 ## Deck structure
