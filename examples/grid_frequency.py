@@ -24,7 +24,6 @@ matplotlib.use("Agg")
 logging.getLogger("matplotlib.font_manager").setLevel(logging.ERROR)
 import matplotlib.pyplot as plt  # noqa: E402
 
-FOOTER = "Grid frequency"
 HERE = Path(__file__).parent
 LOSS, F0, LAG = 0.03, 60, 4
 REFERENCE = 59.5
@@ -56,7 +55,7 @@ SETTLE = HIGH[-1, 1]
 
 
 def questions(prs, dim=0):
-    s = add_slide(prs, "Four questions", footer=FOOTER)
+    s = add_slide(prs, "Four questions")
     items = [("What sets frequency?", "The balance of power in and out"),
              ("How fast does it fall?", "The gap divided by inertia"),
              ("What stops the fall?", "Governors, then slower reserves"),
@@ -88,7 +87,7 @@ def balance_panel(s, x, tripped):
 
 
 def balance(prs):
-    s = add_slide(prs, "Frequency measures the power balance", footer=FOOTER)
+    s = add_slide(prs, "Frequency measures the power balance")
     balance_panel(s, 0.75, False)
     balance_panel(s, 7.05, True)
     bullets(s, [(0, "Frequency is the speed of the synchronized machines"),
@@ -98,7 +97,7 @@ def balance(prs):
 
 
 def swing(prs):
-    s = add_slide(prs, "Swing equation: the gap sets the slope", footer=FOOTER)
+    s = add_slide(prs, "Swing equation: the gap sets the slope")
     eq(s, r"\underbrace{\frac{2H}{f_0}}_{\text{inertia}}\;\underbrace{\frac{df}{dt}}_{\text{slope}}"
           r"\;=\;\underbrace{P_{\text{gen}}-P_{\text{load}}}_{\text{the gap}}",
        0.75, 1.15, 11.85, 1.5, size=32, anchor="t", fallback="(2H/f0) df/dt = Pgen - Pload")
@@ -113,7 +112,7 @@ def swing(prs):
 
 
 def timeline(prs):
-    s = add_slide(prs, "Who responds, and when", layout="Title and Content", footer=FOOTER)
+    s = add_slide(prs, "Who responds, and when", layout="Title and Content")
     x0, w, t0, t1 = 3.55, 9.0, 0.1, 3600
     X = lambda t: x0 + w * (math.log10(t) - math.log10(t0)) / (math.log10(t1) - math.log10(t0))
     rows = (("Inertia", "kinetic energy, no control", t0, 10, "a2"),
@@ -137,7 +136,7 @@ def timeline(prs):
 
 
 def model(prs):
-    s = add_slide(prs, "The model in eight lines", footer=FOOTER)
+    s = add_slide(prs, "The model in eight lines")
     code(s, inspect.getsource(simulate).rstrip(), 0.95, 1.35, 11.7, 2.9)
     bullets(s, [(0, "Two states: frequency deviation and governor power"),
                 (0, "Every number in this deck comes from this function")],
@@ -146,7 +145,7 @@ def model(prs):
 
 
 def chart_slide(prs):
-    s = add_slide(prs, "Less inertia: a faster fall and a deeper low", footer=FOOTER)
+    s = add_slide(prs, "Less inertia: a faster fall and a deeper low")
     data = XyChartData()
     for name, run in (("H = 5 s", HIGH), ("H = 2 s", LOW)):
         ser = data.add_series(name)
@@ -212,7 +211,7 @@ def tradeoff_picture(path, colors):
 
 
 def tradeoff(prs):
-    s = add_slide(prs, "Inertia and response speed trade off", footer=FOOTER)
+    s = add_slide(prs, "Inertia and response speed trade off")
     img = HERE / "_tradeoff.png"
     tradeoff_picture(img, theme_colors(prs))
     pic = s.shapes.add_picture(str(img), I(1.45), I(1.1), width=I(10.4))
@@ -228,7 +227,7 @@ def tradeoff(prs):
 
 
 def recap(prs):
-    s = add_slide(prs, "Recap", layout="Title Only", footer=FOOTER)
+    s = add_slide(prs, "Recap", layout="Title Only")
     rows = [["Question", "Answer", "Example"],
             ["What sets frequency?", "Power balance", f"{LOSS:.0%} gap"],
             ["How fast does it fall?", "Gap ÷ inertia", f"{slope(5):.2f} vs. {slope(2):.2f} Hz/s"],
@@ -252,7 +251,7 @@ def main(out):
     questions(prs, dim=2)
     timeline(prs)
     model(prs)
-    s = add_slide(prs, "Less inertia", layout="Section Header", footer=FOOTER)
+    s = add_slide(prs, "Less inertia", layout="Section Header")
     runs(s.placeholders[1].text_frame.paragraphs[0], "Same physics, less stored energy")
     chart_slide(prs)
     tradeoff(prs)

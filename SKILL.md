@@ -34,11 +34,11 @@ Decide what the audience should see that words can't show, then draw exactly tha
 
 ## Words
 
-- **Every slide needs a title at the bottom left,** including opening and divider slides. Keep it short, on one line, and name the topic or state the point: "Swing equation: the gap sets the slope". Use a consistent position and reserve space so figures and notes never overlap it.
+- **Titles** are short, fit on one line, and name the topic or state the point: "Swing equation: the gap sets the slope".
 - **Bullets** are fragments on one line each, with no final period, at most two levels and about five top-level items. Bold the lead term when defining several things.
 - **Plain words.** Write what an expert would say out loud.
-- **One small italic line** above the bottom-left title for a caveat, what's simplified, or a pointer to later material.
-- **No visible source citations** unless the user asks for them. Don't add author/venue lines, source URLs, citation footers, or a references slide. Keep source provenance in speaker notes or beside the build script instead.
+- **One small italic line** near the bottom for a caveat, what's simplified, or a pointer to later material.
+- **Source citations** aren't visible by default; include them when requested or appropriate. Otherwise keep source provenance in speaker notes or beside the build script.
 
 ## Truth
 
@@ -69,7 +69,7 @@ These are what make slides look AI-generated.
 
 ## Consistent and editable
 
-- Build on the template's layouts and placeholders. For new decks, position title placeholders at the bottom left consistently, even if the template or example puts them elsewhere. When editing an existing deck, move titles only if requested.
+- Build on the template's layouts and placeholders, keeping formatting consistent.
 - Use theme colors and inherited fonts only, so a template swap restyles everything.
 - Keep to a few text sizes: the template's title and bullet sizes, plus about 16 to 20 pt for figure labels and notes.
 - Name every meaningful shape and group related ones. That's how people and later agents find things.
@@ -91,7 +91,7 @@ These are what make slides look AI-generated.
 2. **Propose an outline and wait for approval:** slide titles, plus one line per figure on what it should make obvious. This is where the user's judgment goes in, so keep it cheap to change.
 3. **Inspect the template:** `slidekit inspect template.pptx`. The default is `slidekit.TEMPLATE`.
 4. **Build with a throwaway Python script,** kept beside the deck: `slidekit run build.py`. The script can `import slidekit`. The helpers are in `references/helpers.md`. Use `python-pptx` directly whenever that's simpler; nothing requires the helpers.
-5. **Render and look:** `slidekit render deck.pptx`, then open every slide image. Check that every slide has a bottom-left title and no visible source citations unless requested. Check for overflow, collisions, clipped plots, labels far from what they name, and anything an expert would be embarrassed by. Fix it and render again.
+5. **Render and look:** `slidekit render deck.pptx`, then open every slide image. Check for overflow, collisions, clipped plots, labels far from what they name, and anything an expert would be embarrassed by. Fix it and render again.
 6. **Report plainly:** what's illustrative, what's a picture, and what you couldn't verify.
 
 ## Changing an existing deck
@@ -105,7 +105,7 @@ The `.pptx` is the source of truth, and people may have edited it by hand. Never
 
 ## Working in someone's template
 
-Keep its look, except for the bottom-left title requirement on new decks unless the user explicitly requests another placement; the philosophy above still applies. Layout names and positions vary, so inspect first, and `a1` to `a6` become that template's accent colors. Decoration such as banners and logos isn't listed with the placeholders, so check the render to make sure figures fit around it.
+Keep its look; the philosophy above still applies. Layout names and positions vary, so inspect first, and `a1` to `a6` become that template's accent colors. Decoration such as banners and logos isn't listed with the placeholders, so check the render to make sure figures fit around it.
 
 ## Google Slides
 
