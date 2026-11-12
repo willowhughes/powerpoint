@@ -69,7 +69,7 @@ These are what make slides look AI-generated.
 
 ## Consistent and editable
 
-- Build on the template's layouts and placeholders, keeping formatting consistent.
+- Build on the template's layouts and placeholders, so titles never move.
 - Use theme colors and inherited fonts only, so a template swap restyles everything.
 - Keep to a few text sizes: the template's title and bullet sizes, plus about 16 to 20 pt for figure labels and notes.
 - Name every meaningful shape and group related ones. That's how people and later agents find things.
