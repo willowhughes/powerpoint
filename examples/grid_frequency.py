@@ -61,7 +61,6 @@ def questions(prs, dim=0):
              ("What stops the fall?", "Governors, then slower reserves"),
              ("What changes with less inertia?", "Faster fall, deeper low")]
     bullets(s, [(0, f"[ink~:**{q}** {a}]" if i < dim else f"**{q}** {a}") for i, (q, a) in enumerate(items)])
-    note(s, f"*Running example: a {F0} Hz system loses {LOSS:.0%} of its generation at t = 0*")
 
 
 def balance_panel(s, x, tripped):
@@ -93,7 +92,6 @@ def balance(prs):
     bullets(s, [(0, "Frequency is the speed of the synchronized machines"),
                 (0, "Any gap is paid from their kinetic energy, so they slow")],
             0.75, 4.35, 11.85, 1.5, anchor="t")
-    note(s, f"*Band widths are to scale: a {LOSS:.0%} gap looks small, and it is enough*")
 
 
 def swing(prs):
@@ -107,8 +105,8 @@ def swing(prs):
     eq(s, r"\left.\frac{df}{dt}\right|_{t=0}=\frac{f_0\,\Delta P}{2H}=\frac{%d\times(-%.2f)}{2\times 5}=-%.2f\ \text{Hz/s}"
        % (F0, LOSS, slope(5)),
        0.75, 4.3, 11.85, 1.2, size=28, fallback=f"df/dt at t=0 = f0 dP / 2H = -{slope(5):.2f} Hz/s")
-    note(s, "*One-machine equivalent of the whole system; powers are per unit of capacity*\n"
-            "Kundur, Power System Stability and Control (1994)", size=18, lines=2)
+    s.notes_slide.notes_text_frame.text = ("One-machine equivalent of the whole system; powers are per unit of capacity. "
+                                           "Source: Kundur, Power System Stability and Control (1994).")
 
 
 def timeline(prs):
@@ -132,7 +130,6 @@ def timeline(prs):
     bullets(s, [(0, "Each layer buys time for the next"),
                 (0, "Only inertia acts with no sensing or control")],
             0.75, 4.75, 11.85, 1.3, anchor="t")
-    note(s, "*Log time scale. Typical orders of magnitude; boundaries vary by interconnection*")
 
 
 def model(prs):
@@ -141,7 +138,6 @@ def model(prs):
     bullets(s, [(0, "Two states: frequency deviation and governor power"),
                 (0, "Every number in this deck comes from this function")],
             0.75, 4.35, 11.85, 1.5, anchor="t")
-    note(s, "*R = 20%: 5% droop on the quarter of capacity that responds. H and T are set per run*")
 
 
 def chart_slide(prs):
@@ -221,7 +217,6 @@ def tradeoff(prs):
     bullets(s, [(0, "Lines show the lowest frequency reached"),
                 (0, "Faster response can stand in for lost inertia")],
             0.75, 4.75, 11.85, 1.3, anchor="t")
-    note(s, f"*{REFERENCE} Hz is a reference line; under-frequency load-shedding settings vary by region*")
     s.notes_slide.notes_text_frame.text = ("This plot is an image because PowerPoint has no contour chart. "
                                            "To change it, edit tradeoff_picture() in grid_frequency.py and re-run.")
 
@@ -234,7 +229,6 @@ def recap(prs):
             ["How low does it go?", "Inertia vs. response speed", f"{F_HIGH:.2f} vs. {F_LOW:.2f} Hz"],
             ["Where does it settle?", "Droop and damping, not inertia", f"{SETTLE:.2f} Hz both"]]
     table(s, rows, 0.75, 2.0, [4.2, 4.6, 3.05], row_h=0.62, size=24, name="Recap")
-    note(s, "*H = 5 s vs. H = 2 s, from the same illustrative model*")
 
 
 def main(out):
