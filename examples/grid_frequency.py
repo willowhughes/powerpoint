@@ -65,12 +65,12 @@ def questions(prs, dim=0):
 
 def balance_panel(s, x, tripped):
     """Power flowing through the spinning machines, with band widths to scale."""
-    thick, top, cx, r, end = 1.3, 2.05, x + 2.6, 0.62, x + 5.3
+    thick, top, cx, r, end = 1.5, 2.35, x + 2.6, 0.68, x + 5.3
     gen = 1 - LOSS if tripped else 1.0
-    text(s, "**A plant trips**" if tripped else "**In balance**", x, 1.25, 5.3, 0.36, size=22, name="Panel title")
-    text(s, f"Generation {gen:.0%}", x, 1.68, 1.75, 0.32, size=16, name="Generation label")
-    text(s, "spinning machines", cx - 0.9, 1.68, 1.8, 0.32, size=16, align="c", name="Machines label")
-    text(s, "Load 100%", cx + 1.1, 1.68, 1.6, 0.32, size=16, name="Load label")
+    text(s, "**A plant trips**" if tripped else "**In balance**", x, 1.5, 5.3, 0.36, size=22, name="Panel title")
+    text(s, f"Generation {gen:.0%}", x, 1.93, 1.75, 0.32, size=16, name="Generation label")
+    text(s, "spinning machines", cx - 0.9, 1.93, 1.8, 0.32, size=16, align="c", name="Machines label")
+    text(s, "Load 100%", cx + 1.1, 1.93, 1.6, 0.32, size=16, name="Load label")
     flow = rect(s, x, top, end - x, thick * gen, fill="a1+", line="a1", shape=MSO_SHAPE.PENTAGON,
                 name="Power from generation (to scale)")
     flow.adjustments[0] = 0.28 / (thick * gen)
@@ -90,22 +90,24 @@ def balance(prs):
     balance_panel(s, 0.75, False)
     balance_panel(s, 7.05, True)
     bullets(s, [(0, "Frequency is the speed of the synchronized machines"),
-                (0, "Any gap is paid from their kinetic energy, so they slow")],
-            0.75, 4.35, 11.85, 1.5, anchor="t")
+                (0, "Any gap is paid from their kinetic energy, so they slow"),
+                (0, f"Band widths are to scale: a {LOSS:.0%} gap looks small, and it is enough")],
+            0.75, 4.7, 11.85, 1.8, anchor="t")
 
 
 def swing(prs):
     s = add_slide(prs, "Swing equation: the gap sets the slope")
     eq(s, r"\underbrace{\frac{2H}{f_0}}_{\text{inertia}}\;\underbrace{\frac{df}{dt}}_{\text{slope}}"
           r"\;=\;\underbrace{P_{\text{gen}}-P_{\text{load}}}_{\text{the gap}}",
-       0.75, 1.15, 11.85, 1.5, size=32, anchor="t", fallback="(2H/f0) df/dt = Pgen - Pload")
+       0.75, 1.4, 11.85, 1.5, size=32, anchor="t", fallback="(2H/f0) df/dt = Pgen - Pload")
     bullets(s, [(0, "*H*: stored kinetic energy per unit of capacity, in seconds"),
+                (0, f"Powers are per unit of capacity, so a {LOSS:.0%} loss is Δ*P* = −{LOSS:.2f}"),
                 (0, "Governors have not moved yet, so at first the gap acts alone")],
-            0.75, 2.85, 11.85, 1.3, anchor="t")
+            0.75, 3.35, 11.85, 1.6, anchor="t")
     eq(s, r"\left.\frac{df}{dt}\right|_{t=0}=\frac{f_0\,\Delta P}{2H}=\frac{%d\times(-%.2f)}{2\times 5}=-%.2f\ \text{Hz/s}"
        % (F0, LOSS, slope(5)),
-       0.75, 4.3, 11.85, 1.2, size=28, fallback=f"df/dt at t=0 = f0 dP / 2H = -{slope(5):.2f} Hz/s")
-    s.notes_slide.notes_text_frame.text = ("One-machine equivalent of the whole system; powers are per unit of capacity. "
+       0.75, 5.35, 11.85, 1.2, size=28, fallback=f"df/dt at t=0 = f0 dP / 2H = -{slope(5):.2f} Hz/s")
+    s.notes_slide.notes_text_frame.text = ("One-machine equivalent of the whole system. "
                                            "Source: Kundur, Power System Stability and Control (1994).")
 
 
@@ -117,7 +119,7 @@ def timeline(prs):
             ("Primary", "governors sense frequency", 1, 30, "a5"),
             ("Secondary", "control restores 60 Hz", 30, 600, "a3"),
             ("Tertiary", "re-dispatch", 600, 3600, "a6"))
-    y, h, gap = 1.3, 0.52, 0.13
+    y, h, gap = 1.5, 0.62, 0.16
     for i, (name, what, a, b, color) in enumerate(rows):
         yi = y + i * (h + gap)
         text(s, f"**{name}**", 0.75, yi, 2.7, h, size=22, anchor="m", name=f"{name} label")
@@ -129,15 +131,16 @@ def timeline(prs):
         text(s, label, X(t) - 0.5, axis_y + 0.1, 1.0, 0.28, size=16, align="c", name="Tick label")
     bullets(s, [(0, "Each layer buys time for the next"),
                 (0, "Only inertia acts with no sensing or control")],
-            0.75, 4.75, 11.85, 1.3, anchor="t")
+            0.75, 5.35, 11.85, 1.3, anchor="t")
 
 
 def model(prs):
     s = add_slide(prs, "The model in eight lines")
-    code(s, inspect.getsource(simulate).rstrip(), 0.95, 1.35, 11.7, 2.9)
+    code(s, inspect.getsource(simulate).rstrip(), 0.95, 1.55, 11.7, 2.9)
     bullets(s, [(0, "Two states: frequency deviation and governor power"),
+                (0, "*R* = 0.2: a 5% droop on the quarter of capacity that responds"),
                 (0, "Every number in this deck comes from this function")],
-            0.75, 4.35, 11.85, 1.5, anchor="t")
+            0.75, 4.75, 11.85, 1.8, anchor="t")
 
 
 def chart_slide(prs):
@@ -147,7 +150,7 @@ def chart_slide(prs):
         ser = data.add_series(name)
         for t, f in run[run[:, 0] <= 40][::20]:
             ser.add_data_point(float(t), round(float(f), 4))
-    frame = s.shapes.add_chart(XL_CHART_TYPE.XY_SCATTER_LINES_NO_MARKERS, I(0.6), I(1.1), I(12.1), I(3.75), data)
+    frame = s.shapes.add_chart(XL_CHART_TYPE.XY_SCATTER_LINES_NO_MARKERS, I(0.6), I(1.3), I(12.1), I(3.75), data)
     frame.name = "Frequency after the trip"
     ch = frame.chart
     style_chart(ch)
@@ -163,7 +166,7 @@ def chart_slide(prs):
         ser.smooth = False
         paint(ser.format.line.color, color)
         ser.format.line.width = Pt(2.5)
-    px, py, pw, ph = 1.6, 1.25, 10.9, 2.75
+    px, py, pw, ph = 1.6, 1.45, 10.9, 2.75
     fix_plot(frame, px, py, pw, ph)
     # Overlays are placed from the data, so they land exactly on the curves.
     X = lambda t: px + pw * t / 40
@@ -178,7 +181,7 @@ def chart_slide(prs):
     text(s, f"both settle at {SETTLE:.2f} Hz", X(40) - 3, Y(SETTLE) - 0.36, 3, 0.3, size=16, align="r", name="Settle label")
     bullets(s, [(0, "Same lost power, same final frequency"),
                 (0, f"Steeper start ({slope(5):.2f} vs. {slope(2):.2f} Hz/s), and an earlier, deeper low")],
-            0.75, 4.85, 11.85, 1.3, anchor="t")
+            0.75, 5.05, 11.85, 1.3, anchor="t")
     note(s, f"*Illustrative model: {LOSS:.0%} loss, 20% effective droop, governor lag {LAG} s*")
 
 
@@ -210,13 +213,14 @@ def tradeoff(prs):
     s = add_slide(prs, "Inertia and response speed trade off")
     img = HERE / "_tradeoff.png"
     tradeoff_picture(img, theme_colors(prs))
-    pic = s.shapes.add_picture(str(img), I(1.45), I(1.1), width=I(10.4))
+    pic = s.shapes.add_picture(str(img), I(1.45), I(1.3), width=I(10.4))
     pic.name = "Lowest frequency vs. inertia and governor lag"
     pic._element.nvPicPr.cNvPr.set("descr", "Contours of the lowest frequency reached, by inertia and governor lag")
     img.unlink()
     bullets(s, [(0, "Lines show the lowest frequency reached"),
+                (0, f"[a2-:Shaded]: lows below the {REFERENCE} Hz reference"),
                 (0, "Faster response can stand in for lost inertia")],
-            0.75, 4.75, 11.85, 1.3, anchor="t")
+            0.75, 4.95, 11.85, 1.8, anchor="t")
     s.notes_slide.notes_text_frame.text = ("This plot is an image because PowerPoint has no contour chart. "
                                            "To change it, edit tradeoff_picture() in grid_frequency.py and re-run.")
 
@@ -228,7 +232,7 @@ def recap(prs):
             ["How fast does it fall?", "Gap ÷ inertia", f"{slope(5):.2f} vs. {slope(2):.2f} Hz/s"],
             ["How low does it go?", "Inertia vs. response speed", f"{F_HIGH:.2f} vs. {F_LOW:.2f} Hz"],
             ["Where does it settle?", "Droop and damping, not inertia", f"{SETTLE:.2f} Hz both"]]
-    table(s, rows, 0.75, 2.0, [4.2, 4.6, 3.05], row_h=0.62, size=24, name="Recap")
+    table(s, rows, 0.75, 1.85, [4.2, 4.6, 3.05], row_h=0.74, size=24, name="Recap")
 
 
 def main(out):
